@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,5 +29,16 @@ public class TestController {
 		}
 		//return new Customer("","");
 		return cus;
+	}
+	
+	@Autowired
+	JdbcTemplate jdbcTemplate;
+	final Customer retCus = new Customer("", "");
+	@RequestMapping("/testJdbc")
+	public Customer testJbc()
+	{
+		
+		jdbcTemplate.query("select * from customer t",(rs,rowNum) -> new Customer(rs.getString("FIRST_NAME"),rs.getString("LAST_NAME"))).forEach(customer -> retCus.setFirstName(customer.getFirstName()));
+		return retCus;
 	}
 }
