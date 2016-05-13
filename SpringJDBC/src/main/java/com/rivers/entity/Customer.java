@@ -13,7 +13,7 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-    protected Customer() {}
+    public Customer() {}
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
