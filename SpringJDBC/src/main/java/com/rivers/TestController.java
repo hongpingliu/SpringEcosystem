@@ -37,7 +37,6 @@ public class TestController {
 	@RequestMapping("/testJdbc")
 	public Customer testJbc()
 	{
-		
 		jdbcTemplate.query("select * from customer t",(rs,rowNum) -> new Customer(rs.getString("FIRST_NAME"),rs.getString("LAST_NAME"))).forEach(customer -> retCus.setFirstName(customer.getFirstName()));
 		return retCus;
 	}
