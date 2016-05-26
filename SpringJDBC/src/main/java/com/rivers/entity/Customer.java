@@ -1,5 +1,7 @@
 package com.rivers.entity;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,10 +14,12 @@ public class Customer {
     private String id;
     private String firstName;
     private String lastName;
-
-    public Customer() {}
+    
+    private String uuid = UUID.randomUUID().toString();
+    public Customer() {this.id = uuid;}
 
     public Customer(String firstName, String lastName) {
+    	this.id = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
     }

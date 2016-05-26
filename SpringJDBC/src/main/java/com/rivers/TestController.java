@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ import com.rivers.entity.Customer;
 public class TestController {
 	@Autowired
 	CustomerRepository cusdao;
-	@RequestMapping("/test")
+	@RequestMapping(value="/test",method=RequestMethod.GET)
 	public Customer test(@RequestParam(value="info",defaultValue="") String info)
 	{
 		String uuid = UUID.randomUUID().toString();
@@ -34,9 +35,10 @@ public class TestController {
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	final Customer retCus = new Customer("", "");
-	@RequestMapping("/testJdbc")
+	@RequestMapping(value="/testJdbc",method=RequestMethod.GET)
 	public Customer testJbc()
 	{
+		System.out.println("test jdbc");
 		jdbcTemplate.query("select * from customer t",(rs,rowNum) -> new Customer(rs.getString("FIRST_NAME"),rs.getString("LAST_NAME"))).forEach(customer -> retCus.setFirstName(customer.getFirstName()));
 		return retCus;
 	}
